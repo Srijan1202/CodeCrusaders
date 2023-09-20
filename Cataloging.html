@@ -16,8 +16,6 @@
 <body>
 
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -45,9 +43,9 @@
                         Cataloging
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/myitems.html">My Items</a>
-                        <a class="dropdown-item" href="Cataloging.html">Exhibit for sale</a>
-                        <a class="dropdown-item" href="#placeholder.html">Placeholder</a>
+                        <a class="dropdown-item" href="#">My Items</a>
+                        <a class="dropdown-item" href="Cataloging.html">Exhibit Items on Sale</a>
+                        <a class="dropdown-item" href="#">Placeholder</a>
                     </div>
                 </li>
                 <li class="nav-item">
@@ -141,63 +139,110 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Contact Us</title>
+        <title>Cataloging Header</title>
         <style>
-            body {
-                background-color: #f5f5f5;
-                font-family: Arial, sans-serif;
-            }
-
-            .contact-container {
-                max-width: 600px;
-                margin: 0 auto;
-                padding: 40px;
-                background-color: #fff;
-                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-                border-radius: 10px;
+            .header {
                 text-align: center;
-            }
-
-            h1 {
-                color: #333;
-            }
-
-            p {
-                font-size: 18px;
-                line-height: 1.6;
-                margin-bottom: 20px;
-                color: #666;
-            }
-
-            .contact-statement {
-                background-color: #3498db;
-                color: #fff;
-                padding: 10px;
+                text-shadow: #1d1d1d;
+                background-color: #f2f2f2;
+                padding: 20px;
                 border-radius: 5px;
-                margin-bottom: 10px;
-            }
-
-            .contact-statement:nth-child(odd) {
-                background-color: #e74c3c;
-            }
-
-            .contact-statement:last-child {
-                margin-bottom: 0;
             }
         </style>
     </head>
 
     <body>
-        <div class="contact-container">
-            <h1>Contact Us</h1>
-            <p>We'd love to hear from you! Please reach out to us with any questions or feedback.</p>
-            <div class="contact-statement">1. Feel free to send us an email at codecrusaders1@gmail.com</div>
-            <div class="contact-statement">2. Call our customer support at (123) 456-7890</div>
-            <div class="contact-statement">3. Visit our office at 123 Main Street, Vellore, India</div>
-            <div class="contact-statement">4. Follow us on social media for updates and news</div>
-            <div class="contact-statement">5. Use the form below to send us a message</div>
+        <div class="header">
+            <h1>CATALOGING</h1>
+            <p>Exhibit Your Items Here</p>
         </div>
     </body>
-</body>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#"></a>
+        </nav>
+
+        <div class="container mt-5">
+            <h1>List Your Item for Sale</h1>
+
+            <!-- Item Upload Form -->
+            <form enctype="multipart/form-data" action="upload_handler.php" method="POST">
+                <div class="form-group">
+                    <label for="itemName">Item Name</label>
+                    <input type="text" class="form-control" id="itemName" name="itemName" required>
+                </div>
+                <div class="form-group">
+                    <label for="itemDescription">Item Description</label>
+                    <textarea class="form-control" id="itemDescription" name="itemDescription" rows="4"
+                        required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="itemPrice">Item Price</label>
+                    <input type="number" step="0.01" class="form-control" id="itemPrice" name="itemPrice" required>
+                </div>
+                <form enctype="multipart/form-data" action="upload_handler.php" method="POST">
+                    <div class="form-group">
+                        <label for="imageFiles">Item Images</label>
+                        <input type="file" class="form-control-file" id="imageFiles" name="imageFiles[]" multiple
+                            required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload Images</button>
+                </form>
+        </div>
+        </form>
+        <div class="mt-4" id="imagePreview"></div>
+        </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <style>
+           
+        
+            /* Define a class for controlling the image dimensions and centering */
+            .img-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 50vh; /* Set the container height to 100% of viewport height */
+            }
+        
+            .img-preview {
+                width: 600px;
+                height: 200px;
+                margin-left: 400px;
+            }
+        </style>
+        
+        <script>
+            $(document).ready(function () {
+                $("#imageFiles").on("change", function () {
+                    var files = $(this)[0].files;
+                    
+                    $("#imagePreview").html("");
+        
+                    for (var i = 0; i < files.length; i++) {
+                        var file = files[i];
+                        var reader = new FileReader();
+        
+                        reader.onload = function (e) {
+                            var img = $("<img>").addClass("img-thumbnail mt-2 img-preview"); // Apply the img-preview class
+                            img.attr("src", e.target.result);
+        
+                            $("#imagePreview").append(img);
+                        };
+        
+                        reader.readAsDataURL(file);
+                    }
+                });
+            });
+        </script>
+        
+
+    </body>
 
 </html>
